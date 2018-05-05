@@ -1,0 +1,54 @@
+body {
+  background: url('../images/galaxy-background.jpg');
+}
+
+#main {
+  font-family: 'Menlo', 'Arial', 'Calibri';
+}
+
+#map-container {
+  width: 92.5%;
+  margin: auto;
+  background-color: lightgray;
+  border-radius: 5px 5px 0 0;
+}
+
+#main-header {
+  padding: 2%;
+  color: white;
+}
+
+#right-side, #left-side {
+  height: 100vh;
+}
+
+#text-overlay {
+  border-radius: 5%;
+}
+
+#left-side, #ride-side {
+  float: left;
+}
+
+#left-side {
+  width: 30%;
+}
+
+#right-side {
+  width: 70%;
+  overflow: hidden;
+  border: solid black 1px;
+}
+
+#form-area {
+  padding: 3%;
+}
+
+#right-content {
+  padding: 0 3% 0 3%;
+}
+
+.nav-tabs li {
+  width: 33.3333333333333333333%;
+  text-align: center;
+}
