@@ -51,6 +51,7 @@ function createForm() {
 
     $div.addClass('form-group');
     $label.html(value);
+    $label.attr('id', keys[i]);
     $input.addClass('form-control');
 
     $label.appendTo($div);
@@ -63,12 +64,29 @@ function createForm() {
   $button.addClass('btn btn-primary');
   $button.html('Submit');
   $button.appendTo($form);
+  $button.on('click', printStudentJson);
 
   $form.appendTo($('#form-area'));
 }
 
 function clearForm() {
   $('#form-area').html('');
+}
+
+function printStudentJson() {
+  var $formGroup = $('.form-group');
+  var studentObj = {};
+  for (var i = 0; i < $formGroup.length; i++) {
+    var $formItem = $($formGroup[i]).first()[0];
+    var labelId = $formItem.firstChild.id;
+    var value = $formItem.lastChild.value;
+    if (labelId == 'Age' || labelId == 'DailyInternetUsage') {
+      value = parseInt(value);
+    }
+    studentObj[labelId] = value;
+  }
+  studentObj['id'] = `${studentObj['FirstName']}-${studentObj['LastName']}-${studentObj['Age']}`;
+  $('#content').html(`<pre>${JSON.stringify(studentObj, null, 2)}</pre>`);
 }
 
 function resize() {
