@@ -9,17 +9,16 @@ body {
 #map-container {
   width: 92.5%;
   margin: auto;
-  background-color: lightgray;
   border-radius: 5px 5px 0 0;
+}
+
+#left-side, #right-side, #map-container {
+  background-color: lightgray;
 }
 
 #main-header {
   padding: 2%;
   color: white;
-}
-
-#right-side, #left-side {
-  height: 100vh;
 }
 
 #text-overlay {
@@ -32,15 +31,16 @@ body {
 
 #left-side {
   width: 30%;
+  border-right: solid black 0.1px;
 }
 
 #right-side {
   width: 70%;
   overflow: hidden;
-  border: solid black 1px;
+  border-left: solid black 0.1px;
 }
 
-#form-area {
+#left-content {
   padding: 3%;
 }
 
@@ -48,7 +48,19 @@ body {
   padding: 0 3% 0 3%;
 }
 
+#right-content-inner {
+  padding-bottom: 75%;
+}
+
 .nav-tabs li {
   width: 33.3333333333333333333%;
   text-align: center;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 15px;
 }
