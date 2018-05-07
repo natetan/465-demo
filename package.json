@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "canvasjs": "^1.8.1",
+    "documentdb": "^1.14.4",
+    "fusioncharts": "^3.12.2",
     "jquery": "^3.3.1",
     "node-fetch": "^2.1.2"
   }

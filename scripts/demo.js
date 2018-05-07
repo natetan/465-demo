@@ -38,6 +38,7 @@ function updateActive() {
   } else {
     title = 'Chart';
     clearRightContent();
+    createChart();
     clearForm();
     messageContent = 'Everyone dies from rocket powered pistols.';
   }
@@ -69,20 +70,21 @@ function createForm() {
     $div.appendTo($form);
   }
 
-  $addButton.attr('type', 'submit');
+  // $addButton.attr('type', 'submit');
   $addButton.attr('id', 'addButton');
   $addButton.addClass('btn btn-primary');
   $addButton.html('Add');
   $addButton.appendTo($form);
   $addButton.on('click', addStudent);
 
-  $postButton.attr('type', 'submit');
+  // $postButton.attr('type', 'submit');
   $postButton.attr('id', 'postButton');
   $postButton.addClass('btn btn-success');
   $postButton.html('Post');
   $postButton.css('marginLeft', '3%');
+  // $postButton.on('click', postData);
 
-  $clearButton.attr('type', 'submit');
+  // $clearButton.attr('type', 'submit');
   $clearButton.attr('id', 'clearButton');
   $clearButton.addClass('btn btn-danger');
   $clearButton.html('Clear');
@@ -170,7 +172,7 @@ function createHtmlTable() {
     var $tr = create('tr');
     for (var j = 0; j < objectLength; j++) {
       var $td = create('td');
-      
+
       $td.html(_students[i][keys[j]]);
       $td.appendTo($tr);
     }
@@ -188,4 +190,62 @@ function displayRightContent(tab) {
 
 function create(element) {
   return $(document.createElement(element));
+}
+
+function createChart() {
+  var dataPoints = [];
+
+  for (var i = 0; i < _students.length; i++) {
+    var student = _students[i];
+    var x = `${student['FirstName']} ${student['LastName']}`;
+    var y = parseInt(student['DailyInternetUsage']);
+    console.log(x);
+    console.log(y);
+    dataPoints.push({
+      label: `${student['FirstName']} ${student['LastName']}`,
+      value: student['DailyInternetUsage']
+    });
+  }
+  
+  var chart = new FusionCharts({
+    "type": "column2d",
+    "width": "500",
+    "height": "300",
+    "dataFormat": "json",
+    "dataSource": {
+      chart: {},
+      data: dataPoints
+    }
+  }).render("right-content-inner");
+
+}
+
+async function postData() {
+  const res = await makeGetRequest('http://itservicemanagement-dev-apiapp-westus.azurewebsites.net', '/api/v1/itsm/lists/affected');
+  console.log(res);
+}
+
+async function makeGetRequest(url, endpoint) {
+  // console.log(`Endpoint: ${url}${endpoint}`);
+  const res = await fetch(url + endpoint, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  return await res.json();
+}
+
+async function makePostRequest(url, endpoint, requestData) {
+  // console.log(`Endpoint: ${url}${endpoint}`);
+  const res = await fetch(url + endpoint, {
+    method: 'POST',
+    body: requestData,
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': requestData.length,
+    }
+  });
+
+  return await res.json();
 }
