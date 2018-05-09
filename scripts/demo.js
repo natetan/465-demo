@@ -89,6 +89,7 @@ function createForm() {
   $clearButton.addClass('btn btn-danger');
   $clearButton.html('Clear');
   $clearButton.css('marginLeft', '3%');
+  $clearButton.on('click', clearStudents);
 
   if (_thereIsData) {
     showElement($postButton);
@@ -132,6 +133,14 @@ function addStudent() {
   showElement($('#clearButton'));
   printStudentJson();
   createHtmlTable();
+}
+
+function clearStudents() {
+  _thereIsData = false;
+  _students = [];
+  hideElement($('#postButton'));
+  hideElement($('#clearButton'));
+  displayRightContent(1);
 }
 
 function printStudentJson() {
@@ -197,10 +206,6 @@ function createChart() {
 
   for (var i = 0; i < _students.length; i++) {
     var student = _students[i];
-    var x = `${student['FirstName']} ${student['LastName']}`;
-    var y = parseInt(student['DailyInternetUsage']);
-    console.log(x);
-    console.log(y);
     dataPoints.push({
       label: `${student['FirstName']} ${student['LastName']}`,
       value: student['DailyInternetUsage']
