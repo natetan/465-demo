@@ -82,7 +82,7 @@ function createForm() {
   $postButton.addClass('btn btn-success');
   $postButton.html('Post');
   $postButton.css('marginLeft', '3%');
-  // $postButton.on('click', postData);
+  $postButton.on('click', postData);
 
   // $clearButton.attr('type', 'submit');
   $clearButton.attr('id', 'clearButton');
@@ -171,6 +171,10 @@ function createHtmlTable() {
 
   const keys = Object.keys(_schema);
   const objectLength = keys.length;
+  // Create ID col for each row
+  var $thId = create('th');
+  $thId.html('ID');
+  $thId.appendTo($trTop);
   for (var i = 0; i < objectLength; i++) {
     var $th = create('th');
     $th.html(keys[i]);
@@ -179,6 +183,10 @@ function createHtmlTable() {
 
   for (var i = 0; i < _students.length; i++) {
     var $tr = create('tr');
+    // Create an ID col for each row
+    var $tdId = create('td');
+    $tdId.html(i + 1);
+    $tdId.appendTo($tr);
     for (var j = 0; j < objectLength; j++) {
       var $td = create('td');
 
@@ -211,7 +219,7 @@ function createChart() {
       value: student['DailyInternetUsage']
     });
   }
-  
+
   var chart = new FusionCharts({
     "type": "column2d",
     "width": "500",
@@ -226,7 +234,8 @@ function createChart() {
 }
 
 async function postData() {
-  const res = await makeGetRequest('http://itservicemanagement-dev-apiapp-westus.azurewebsites.net', '/api/v1/itsm/lists/affected');
+  //const res = await makeGetRequest('http://itservicemanagement-dev-apiapp-westus.azurewebsites.net', '/api/v1/itsm/lists/affected');
+  const res = await makeGetRequest('/CosmosClient/GetDocuments');
   console.log(res);
 }
 
